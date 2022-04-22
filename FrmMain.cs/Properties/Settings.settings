@@ -5,10 +5,26 @@
     <Setting Name="QLDSV_HTCConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=ADMIN\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=PHILONG\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV;password=123456&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=ADMIN\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV</Value>
+      <Value Profile="(Default)">Data Source=PHILONG\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV;password=123456</Value>
+    </Setting>
+    <Setting Name="QLDSV_HTCConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=PHILONG;Initial Catalog=QLDSV_HTC;Persist Security Info=True;User ID=sa&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=PHILONG;Initial Catalog=QLDSV_HTC;Persist Security Info=True;User ID=sa</Value>
+    </Setting>
+    <Setting Name="QLDSV_HTCConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=PHILONG\SERVER3;Initial Catalog=QLDSV_HTC;User ID=PKT&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=PHILONG\SERVER3;Initial Catalog=QLDSV_HTC;User ID=PKT</Value>
     </Setting>
   </Settings>
 </SettingsFile>

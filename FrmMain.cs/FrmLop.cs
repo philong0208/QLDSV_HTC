@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,10 @@ using System.Windows.Forms;
 namespace FrmMain.cs
 {
     public partial class FrmLop : Form
-    {
-        String macn = "";
+    { 
         int vitri = 0;
+        String oldMaLop = "";
+        String oldTenLop = "";
         public FrmLop()
         {
             InitializeComponent();
@@ -46,11 +48,12 @@ namespace FrmMain.cs
             this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
             this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
 
-            macn = ((DataRowView)bdsLOP[0])["MAKHOA"].ToString();
+            Program.mMAKHOA = ((DataRowView)bdsLOP[0])["MAKHOA"].ToString();
             cmbTenPhongBan.DataSource = Program.bds_dspm;
+            Program.bds_dspm.Filter = "TENCN LIKE 'KHOA%'";
             cmbTenPhongBan.DisplayMember = "TENCN";
             cmbTenPhongBan.ValueMember = "TENSERVER";
-            cmbTenPhongBan.SelectedIndex = Program.mChiNhanh;
+/*            cmbTenPhongBan.SelectedIndex = Program.mChiNhanh;*/
             pcLop.Enabled = false;
             pcLop.Visible = false;
             if(Program.mGroup == "PGV")
@@ -100,18 +103,112 @@ namespace FrmMain.cs
                
                 this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+                Program.mMAKHOA = ((DataRowView)bdsLOP[0])["MAKHOA"].ToString();
 
-                macn = ((DataRowView)bdsLOP[0])["MAKHOA"].ToString();
             }
         }
+        private int KiemTraTrung(String strLenh)
+        {
+            
+            SqlDataReader dataReader = Program.ExecSqlDataReader(strLenh);
 
+            // nếu null thì thoát luôn  ==> lỗi kết nối
+            if (dataReader == null)
+            {
+                return -1;
+            }
+            dataReader.Read();
+            int result = int.Parse(dataReader.GetValue(0).ToString());
+            dataReader.Close();
+            return result;
+        }
+        private bool kiemTraField()
+        {
+            if(Program.Control == "add")
+            {
+                string strLenh = "DECLARE  @return_value int \n"
+                           + "EXEC  @return_value = SP_CHECKID \n"
+                           + "@Code = N'" + txtMALOP.Text + "',@Type = N'MALOP' \n"
+                           + "SELECT  'Return Value' = @return_value ";
+                int result = KiemTraTrung(strLenh);
+
+                if (txtMALOP.Text.Trim() == "")
+                {
+                    MessageBox.Show("Mã lớp không được để trống!", "", MessageBoxButtons.OK);
+                    txtMALOP.Focus();
+                    return false;
+                }
+                if (result == 1 || result == 2)
+                {
+                    MessageBox.Show("Mã lớp đã tồn tại!", "", MessageBoxButtons.OK);
+                    txtMALOP.Focus();
+                    return false;
+                }
+                if (txtTenLop.Text.Trim() == "")
+                {
+                    MessageBox.Show("Tên lớp không được để trống!", "", MessageBoxButtons.OK);
+                    txtTenLop.Focus();
+                    return false;
+                }
+                string strLenh1 = "DECLARE @return_value int \n"
+                                   + "EXEC @return_value = SP_CHECKNAME \n"
+                                   + "@Name = N'" + txtTenLop.Text + "', @Type = N'TENLOP' \n"
+                                   + "SELECT 'Return Value' = @return_value ";
+                int result1 = KiemTraTrung(strLenh1);
+                if (result1 == 1 || result1 == 2)
+                {
+                    MessageBox.Show("Tên lớp đã tồn tại!", "", MessageBoxButtons.OK);
+                    txtTenLop.Focus();
+                    return false;
+                }
+                if (txtKhoaHoc.Text.Trim() == "")
+                {
+                    MessageBox.Show("Khoá học đã tồn tại!", "", MessageBoxButtons.OK);
+                    txtKhoaHoc.Focus();
+                    return false;
+                }
+            }
+            if(Program.Control == "edit")
+            {
+                if (!this.txtMALOP.Text.Trim().ToString().Equals(oldMaLop))
+                {
+                    string strLenh = "DECLARE  @return_value int \n"
+                           + "EXEC  @return_value = SP_CHECKID \n"
+                           + "@Code = N'" + txtMALOP.Text + "',@Type = N'MALOP' \n"
+                           + "SELECT  'Return Value' = @return_value ";
+                    int result = KiemTraTrung(strLenh);
+                    if (result == 1 || result == 2)
+                    {
+                        MessageBox.Show("Mã lớp đã tồn tại!", "", MessageBoxButtons.OK);
+                        txtMALOP.Focus();
+                        return false;
+                    }
+                }
+                if (!this.txtTenLop.Text.Trim().ToString().Equals(oldTenLop))
+                {
+                    string strLenh1 = "DECLARE @return_value int \n"
+                                   + "EXEC @return_value = SP_CHECKNAME \n"
+                                   + "@Name = N'" + txtTenLop.Text + "', @Type = N'TENLOP' \n"
+                                   + "SELECT 'Return Value' = @return_value ";
+                    int result1 = KiemTraTrung(strLenh1);
+                    if (result1 == 1 || result1 == 2)
+                    {
+                        MessageBox.Show("Tên lớp đã tồn tại!", "", MessageBoxButtons.OK);
+                        txtTenLop.Focus();
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         private void btnAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            Program.Control = "add";
             vitri = bdsLOP.Position;
             this.EnablePanelControl();
             bdsLOP.AddNew();
             txtMALOP.Focus();
-            txtMAKH.Text = macn;
+            txtMAKH.Text = Program.mMAKHOA;
             btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = false;
             btnSave.Enabled = btnUndo.Enabled = true;
 
@@ -124,7 +221,7 @@ namespace FrmMain.cs
             if (btnAdd.Enabled == false) bdsLOP.Position = vitri;
             gcLOP.Enabled = true;
             this.DisablePanelControl();
-            btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = true;
+            btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = true;
             btnSave.Enabled = btnUndo.Enabled = false;
         }
 
@@ -158,55 +255,50 @@ namespace FrmMain.cs
 
         private void btnEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            Program.Control = "edit";
+            this.oldMaLop = this.txtMALOP.Text.Trim().ToString();
+            this.oldTenLop = this.txtTenLop.Text.Trim().ToString();
             vitri = bdsLOP.Position;
             gcLOP.Enabled = true;
             this.EnablePanelControl();
-            bdsLOP.MoveFirst();
             btnSave.Enabled = btnUndo.Enabled = true;
-            btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = false;
+            btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = false;
         }
 
         private void btnSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (txtMALOP.Text.Trim().Equals(" "))
-            {
-                MessageBox.Show("Mã lớp không được để trống" , "", MessageBoxButtons.OK);
-                txtMALOP.Focus();
-                return;
-            }
-            if (txtTenLop.Text.Trim().Equals(" "))
-            {
-                MessageBox.Show("Tên lớp không được để trống", "", MessageBoxButtons.OK);
-                txtTenLop.Focus();
-                return;
-            }
-            if (txtKhoaHoc.Text.Trim().Equals(" "))
-            {
-                MessageBox.Show("Khoá học không được để trống", "", MessageBoxButtons.OK);
-                txtKhoaHoc.Focus();
-                return;
-            }
 
-            // KT MALOP,KHOAHOC DUNG CAU TRUC
-            // KT MALOP CO NAM TRONG CSDL CHUA
-
-            try
+            if (kiemTraField())
             {
-                this.bdsLOP.EndEdit();
-                this.bdsLOP.ResetCurrentItem();// tự động render để hiển thị dữ liệu mới
-                this.lOPTableAdapter.Update(this.dS.LOP);
+                try
+                {
+                    bdsLOP.EndEdit();
+                    bdsLOP.ResetCurrentItem();
+                    this.lOPTableAdapter.Update(this.dS.LOP);
+                    if(Program.Control == "add")
+                    {
+                        bdsLOP.MoveLast();
+                    }
+                    else if(Program.Control == "edit")
+                    {
+                        bdsLOP.Position = vitri;
+                    }
+                    gcLOP.Enabled = true;
+                    btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = true;
+                    btnSave.Enabled = btnUndo.Enabled = false;
+                    this.DisablePanelControl();
+                    MessageBox.Show("Ghi thành công", "", MessageBoxButtons.OK);
 
-            }
-            catch (Exception ex)
-            {
-                bdsLOP.RemoveCurrent();
-                MessageBox.Show("Ghi dữ liệu thất lại. Vui lòng kiểm tra lại!\n" + ex.Message, "Error",
+                }
+                catch (Exception ex)
+                {
+                    bdsLOP.RemoveCurrent();
+                    MessageBox.Show("Ghi dữ liệu thất lại. Vui lòng kiểm tra lại!\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            gcLOP.Enabled = true;
-            btnAdd.Enabled =btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = btnExit.Enabled = true;
-            btnSave.Enabled = btnUndo.Enabled = false;
-            this.DisablePanelControl();
+            Program.Control = "";
+            
         }
 
         private void btnReload_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -227,8 +319,18 @@ namespace FrmMain.cs
         {
             Close();
         }
-
+        
         private void pcLop_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtMALOP_TextChanged(object sender, EventArgs e)
+        {
+            txtMALOP.CharacterCasing = CharacterCasing.Upper;
+        }
+
+        private void gcLOP_Click(object sender, EventArgs e)
         {
 
         }

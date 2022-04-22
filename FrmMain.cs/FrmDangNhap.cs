@@ -29,6 +29,7 @@ namespace FrmMain.cs
             cmbCN.DisplayMember = "TENCN";
             cmbCN.ValueMember = "TENSERVER";
         }
+
         public FrmDangNhap()
         {
             InitializeComponent();
@@ -54,7 +55,8 @@ namespace FrmMain.cs
         {
             if (KetNoi_CSDLGoc() == 0) return;
             LayDSPM("SELECT * FROM dbo.Get_Subscribes ");
-            cmbCN.SelectedIndex = 1; cmbCN.SelectedIndex = 0;
+            cmbCN.SelectedIndex = 1;
+            cmbCN.SelectedIndex = 0;
 
         }
 
@@ -106,7 +108,8 @@ namespace FrmMain.cs
 
                 Program.mloginDN = Program.mlogin;
                 Program.passwordDN = Program.mpassword;
-
+	
+	//Program.MKhoa = cmbKhoa.SelectedIndex;
 
                 strLenh = "exec SP_DANGNHAP '" + Program.mlogin + "'";
                
@@ -156,5 +159,7 @@ namespace FrmMain.cs
         {
             
         }
+
+        
     }
 }

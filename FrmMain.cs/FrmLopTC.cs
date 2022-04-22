@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,11 @@ namespace FrmMain.cs
         {
             this.pcLopTC.Visible = true;
             this.pcLopTC.Enabled = true;
-            this.cmbTenPhongBan.Enabled = false;
         }
         public void DisablePanelControl()
         {
             this.pcLopTC.Visible = false;
             this.pcLopTC.Enabled = false;
-            this.cmbTenPhongBan.Enabled = false;
         }
         private void lOPTINCHIBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -49,9 +48,10 @@ namespace FrmMain.cs
 
             Program.mMAKHOA = ((DataRowView)bdsLopTC[0])["MAKHOA"].ToString();
             cmbTenPhongBan.DataSource = Program.bds_dspm;
+            Program.bds_dspm.Filter = "TENCN LIKE 'KHOA%'";
             cmbTenPhongBan.DisplayMember = "TENCN";
             cmbTenPhongBan.ValueMember = "TENSERVER";
-            cmbTenPhongBan.SelectedIndex = Program.mChiNhanh;
+            /*cmbTenPhongBan.SelectedIndex = Program.mChiNhanh;*/
             pcLopTC.Visible = false;
             gcLopTC.Dock = DockStyle.Fill;
             if (Program.mGroup == "PGV")
@@ -103,27 +103,36 @@ namespace FrmMain.cs
 
             this.dANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
             this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
+             Program.mMAKHOA = ((DataRowView)bdsLopTC[0])["MAKHOA"].ToString();
 
-                
-        }
+            }
     }
 
     private void btnAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
+         Program.Control = "add";
         gcLopTC.Dock = DockStyle.Right;
         vitri = bdsLopTC.Position;
         this.EnablePanelControl();
         bdsLopTC.AddNew();
         txtNienKhoa.Focus();
+        
         String cmd = "SELECT MAMH FROM dbo.MONHOC";
         DataTable dt = new DataTable();
-        dt = Program.ExecSqlDataTable(cmd);
-         
+        dt = Program.ExecSqlDataTable(cmd);         
         cmbMaMH.DataSource = dt;
-        cmbMaMH.DisplayMember = "TENMH";
+        cmbMaMH.DisplayMember = "MAMH" ;
         cmbMaMH.ValueMember = "MAMH";
         cmbMaMH.SelectedIndex = 0;
-        txtMaGV.Text = Program.username;
+        
+        String cmd1 = "SELECT * FROM dbo.GIANGVIEN";
+        DataTable _dt1 = new DataTable();
+            _dt1 = Program.ExecSqlDataTable(cmd1);
+            cmbGV.DataSource = _dt1;
+            cmbGV.DisplayMember ="MAGV";
+            cmbGV.ValueMember = "MAGV";
+            cmbGV.SelectedIndex = 0;
+        
         txtMaKhoa.Text = Program.mMAKHOA;
         cbHuyLop.Enabled = false;
         cbHuyLop.CheckState = CheckState.Unchecked;
@@ -163,6 +172,7 @@ namespace FrmMain.cs
 
         private void btnEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            Program.Control = "edit";
             gcLopTC.Dock = DockStyle.Right;
             vitri = bdsLopTC.Position;
             gcLopTC.Enabled = true;
@@ -178,8 +188,9 @@ namespace FrmMain.cs
             bdsLopTC.CancelEdit();
             if (btnAdd.Enabled == false) bdsLopTC.Position = vitri;
             gcLopTC.Enabled = true;
+            gcLopTC.Dock = DockStyle.Fill;
             this.DisablePanelControl();
-            btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = true;
+            btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = true;
             btnSave.Enabled = btnUndo.Enabled = false;
         }
 
@@ -211,43 +222,79 @@ namespace FrmMain.cs
 
         private void btnSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (txtNienKhoa.Text.Trim().Equals(" "))
+            bool check = this.checkfield();
+            if(check)
             {
-                MessageBox.Show("Niên khoá không được để trống", "", MessageBoxButtons.OK);
-                txtNienKhoa.Focus();
-                return;
+                try
+                {
+                    this.bdsLopTC.EndEdit();
+                    this.bdsLopTC.ResetCurrentItem();// tự động render để hiển thị dữ liệu mới
+                    this.lOPTINCHITableAdapter.Update(this.dS.LOPTINCHI);
+                    MessageBox.Show("Ghi thành công: ", "", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    bdsLopTC.RemoveCurrent();
+                    MessageBox.Show("Ghi dữ liệu thất lại. Vui lòng kiểm tra lại!\n" + ex.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                gcLopTC.Enabled = true;
+                btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = barButtonItem1.Enabled = true;
+                btnSave.Enabled = btnUndo.Enabled = false;
+                this.DisablePanelControl();
             }
-
-            if (txtSL.Text.Trim().Equals(" "))
-            {
-                MessageBox.Show("Số lượng không được để trống", "", MessageBoxButtons.OK);
-                txtSL.Focus();
-                return;
-            }
-           
-
-            try
-            {
-                this.bdsLopTC.EndEdit();
-                this.bdsLopTC.ResetCurrentItem();// tự động render để hiển thị dữ liệu mới
-                this.lOPTINCHITableAdapter.Update(this.dS.LOPTINCHI);
-
-            }
-            catch (Exception ex)
-            {
-                bdsLopTC.RemoveCurrent();
-                MessageBox.Show("Ghi dữ liệu thất lại. Vui lòng kiểm tra lại!\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            gcLopTC.Enabled = true;
-            btnAdd.Enabled = btnEdit.Enabled = btnDel.Enabled = btnReload.Enabled = barButtonItem1.Enabled = true;
-            btnSave.Enabled = btnUndo.Enabled = false;
-            this.DisablePanelControl();
         }
 
         private void cmbMaMH_SelectedIndexChanged(object sender, EventArgs e)
         {
           
+        }
+        private int KiemTraTrung(String strLenh)
+        {
+
+            SqlDataReader dataReader = Program.ExecSqlDataReader(strLenh);
+
+            // nếu null thì thoát luôn  ==> lỗi kết nối
+            if (dataReader == null)
+            {
+                return -1;
+            }
+            dataReader.Read();
+            int result = int.Parse(dataReader.GetValue(0).ToString());
+            dataReader.Close();
+            return result;
+        }
+        private bool checkfield()
+        {
+            if(Program.Control == "add")
+            {
+                if (txtNienKhoa.Text.Trim().Equals(" "))
+                {
+                    MessageBox.Show("Niên khoá không được để trống", "", MessageBoxButtons.OK);
+                    txtNienKhoa.Focus();
+                    return false;
+                }
+
+                if (txtSL.Text.Trim().Equals(" "))
+                {
+                    MessageBox.Show("Số lượng không được để trống", "", MessageBoxButtons.OK);
+                    txtSL.Focus();
+                    return false;
+                }
+
+                string strLenh = "DECLARE  @return_value int \n"
+                               + "EXEC	@return_value = [dbo].[CHECK_LOPTC] \n"
+                               + "@NIENKHOA = N'" + txtNienKhoa.Text + "',@HOCKY = N'" + Decimal.ToInt32(spinHK.Value) + "',@MAMH = N'" + cmbMaMH.SelectedValue.ToString() + "',@NHOM = N'" + Decimal.ToInt32(spinNhom.Value) + "' \n"
+                               + "SELECT  'Return Value' = @return_value ";
+                int result = this.KiemTraTrung(strLenh);
+                if (result == 1)
+                {
+                    MessageBox.Show("Lớp tín chỉ đã có trong cơ sơ dữ liệu", "", MessageBoxButtons.OK);
+                    txtNienKhoa.Focus();
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

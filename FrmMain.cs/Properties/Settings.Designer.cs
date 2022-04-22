@@ -26,10 +26,32 @@ namespace FrmMain.cs.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ADMIN\\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PHILONG\\SERVER1;Initial Catalog=QLDSV_HTC;User ID=PGV;password=123456" +
+            "")]
         public string QLDSV_HTCConnectionString {
             get {
                 return ((string)(this["QLDSV_HTCConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PHILONG;Initial Catalog=QLDSV_HTC;Persist Security Info=True;User ID=" +
+            "sa")]
+        public string QLDSV_HTCConnectionString1 {
+            get {
+                return ((string)(this["QLDSV_HTCConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PHILONG\\SERVER3;Initial Catalog=QLDSV_HTC;User ID=PKT")]
+        public string QLDSV_HTCConnectionString2 {
+            get {
+                return ((string)(this["QLDSV_HTCConnectionString2"]));
             }
         }
     }

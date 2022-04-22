@@ -37,8 +37,8 @@ namespace FrmMain.cs
             System.Windows.Forms.Label sOSVTOITHIEULabel;
             System.Windows.Forms.Label hUYLOPLabel;
             System.Windows.Forms.Label mAMHLabel;
+            System.Windows.Forms.Label mAGVLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLopTC));
-            this.mAGVLabel = new System.Windows.Forms.Label();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.btnAdd = new DevExpress.XtraBars.BarButtonItem();
@@ -74,11 +74,11 @@ namespace FrmMain.cs
             this.colSOSVTOITHIEU = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHUYLOP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pcLopTC = new DevExpress.XtraEditors.PanelControl();
+            this.cmbGV = new System.Windows.Forms.ComboBox();
             this.cmbMaMH = new System.Windows.Forms.ComboBox();
             this.cbHuyLop = new DevExpress.XtraEditors.CheckEdit();
             this.txtSL = new DevExpress.XtraEditors.TextEdit();
             this.txtMaKhoa = new DevExpress.XtraEditors.TextEdit();
-            this.txtMaGV = new DevExpress.XtraEditors.TextEdit();
             this.spinNhom = new DevExpress.XtraEditors.SpinEdit();
             this.spinHK = new DevExpress.XtraEditors.SpinEdit();
             this.txtNienKhoa = new DevExpress.XtraEditors.TextEdit();
@@ -91,6 +91,7 @@ namespace FrmMain.cs
             sOSVTOITHIEULabel = new System.Windows.Forms.Label();
             hUYLOPLabel = new System.Windows.Forms.Label();
             mAMHLabel = new System.Windows.Forms.Label();
+            mAGVLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -103,7 +104,6 @@ namespace FrmMain.cs
             ((System.ComponentModel.ISupportInitialize)(this.cbHuyLop.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSL.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtMaGV.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinNhom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinHK.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNienKhoa.Properties)).BeginInit();
@@ -175,12 +175,12 @@ namespace FrmMain.cs
             // 
             // mAGVLabel
             // 
-            this.mAGVLabel.AutoSize = true;
-            this.mAGVLabel.Location = new System.Drawing.Point(29, 405);
-            this.mAGVLabel.Name = "mAGVLabel";
-            this.mAGVLabel.Size = new System.Drawing.Size(58, 19);
-            this.mAGVLabel.TabIndex = 8;
-            this.mAGVLabel.Text = "MÃ GV";
+            mAGVLabel.AutoSize = true;
+            mAGVLabel.Location = new System.Drawing.Point(33, 405);
+            mAGVLabel.Name = "mAGVLabel";
+            mAGVLabel.Size = new System.Drawing.Size(100, 19);
+            mAGVLabel.TabIndex = 16;
+            mAGVLabel.Text = "GIẢNG VIÊN";
             // 
             // barManager1
             // 
@@ -355,7 +355,7 @@ namespace FrmMain.cs
             this.cmbTenPhongBan.FormattingEnabled = true;
             this.cmbTenPhongBan.Location = new System.Drawing.Point(442, 18);
             this.cmbTenPhongBan.Name = "cmbTenPhongBan";
-            this.cmbTenPhongBan.Size = new System.Drawing.Size(255, 27);
+            this.cmbTenPhongBan.Size = new System.Drawing.Size(319, 27);
             this.cmbTenPhongBan.TabIndex = 1;
             this.cmbTenPhongBan.SelectedIndexChanged += new System.EventHandler(this.cmbTenPhongBan_SelectedIndexChanged);
             // 
@@ -506,6 +506,8 @@ namespace FrmMain.cs
             // 
             // pcLopTC
             // 
+            this.pcLopTC.Controls.Add(mAGVLabel);
+            this.pcLopTC.Controls.Add(this.cmbGV);
             this.pcLopTC.Controls.Add(mAMHLabel);
             this.pcLopTC.Controls.Add(this.cmbMaMH);
             this.pcLopTC.Controls.Add(hUYLOPLabel);
@@ -514,8 +516,6 @@ namespace FrmMain.cs
             this.pcLopTC.Controls.Add(this.txtSL);
             this.pcLopTC.Controls.Add(mAKHOALabel);
             this.pcLopTC.Controls.Add(this.txtMaKhoa);
-            this.pcLopTC.Controls.Add(this.mAGVLabel);
-            this.pcLopTC.Controls.Add(this.txtMaGV);
             this.pcLopTC.Controls.Add(nHOMLabel);
             this.pcLopTC.Controls.Add(this.spinNhom);
             this.pcLopTC.Controls.Add(hOCKYLabel);
@@ -527,6 +527,16 @@ namespace FrmMain.cs
             this.pcLopTC.Name = "pcLopTC";
             this.pcLopTC.Size = new System.Drawing.Size(693, 613);
             this.pcLopTC.TabIndex = 11;
+            // 
+            // cmbGV
+            // 
+            this.cmbGV.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bdsLopTC, "MAGV", true));
+            this.cmbGV.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGV.FormattingEnabled = true;
+            this.cmbGV.Location = new System.Drawing.Point(153, 402);
+            this.cmbGV.Name = "cmbGV";
+            this.cmbGV.Size = new System.Drawing.Size(162, 27);
+            this.cmbGV.TabIndex = 17;
             // 
             // cmbMaMH
             // 
@@ -568,16 +578,6 @@ namespace FrmMain.cs
             this.txtMaKhoa.Size = new System.Drawing.Size(167, 28);
             this.txtMaKhoa.TabIndex = 11;
             // 
-            // txtMaGV
-            // 
-            this.txtMaGV.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLopTC, "MAGV", true));
-            this.txtMaGV.Enabled = false;
-            this.txtMaGV.Location = new System.Drawing.Point(153, 401);
-            this.txtMaGV.MenuManager = this.barManager1;
-            this.txtMaGV.Name = "txtMaGV";
-            this.txtMaGV.Size = new System.Drawing.Size(127, 28);
-            this.txtMaGV.TabIndex = 9;
-            // 
             // spinNhom
             // 
             this.spinNhom.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLopTC, "NHOM", true));
@@ -591,6 +591,8 @@ namespace FrmMain.cs
             this.spinNhom.Name = "spinNhom";
             this.spinNhom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinNhom.Properties.IsFloatValue = false;
+            this.spinNhom.Properties.Mask.EditMask = "N00";
             this.spinNhom.Properties.MaxValue = new decimal(new int[] {
             10,
             0,
@@ -601,6 +603,8 @@ namespace FrmMain.cs
             0,
             0,
             0});
+            this.spinNhom.Properties.ShowNullValuePrompt = ((DevExpress.XtraEditors.ShowNullValuePromptOptions)(((DevExpress.XtraEditors.ShowNullValuePromptOptions.EmptyValue | DevExpress.XtraEditors.ShowNullValuePromptOptions.EditorFocused) 
+            | DevExpress.XtraEditors.ShowNullValuePromptOptions.EditorReadOnly)));
             this.spinNhom.Size = new System.Drawing.Size(127, 28);
             this.spinNhom.TabIndex = 7;
             // 
@@ -677,7 +681,6 @@ namespace FrmMain.cs
             ((System.ComponentModel.ISupportInitialize)(this.cbHuyLop.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSL.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtMaGV.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinNhom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinHK.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNienKhoa.Properties)).EndInit();
@@ -718,7 +721,6 @@ namespace FrmMain.cs
         private DevExpress.XtraEditors.CheckEdit cbHuyLop;
         private DevExpress.XtraEditors.TextEdit txtSL;
         private DevExpress.XtraEditors.TextEdit txtMaKhoa;
-        private DevExpress.XtraEditors.TextEdit txtMaGV;
         private DevExpress.XtraEditors.SpinEdit spinNhom;
         private DevExpress.XtraEditors.SpinEdit spinHK;
         private DevExpress.XtraEditors.TextEdit txtNienKhoa;
@@ -733,7 +735,7 @@ namespace FrmMain.cs
         private DevExpress.XtraGrid.Columns.GridColumn colHUYLOP;
         private System.Windows.Forms.BindingSource bdsDK;
         private DSTableAdapters.DANGKYTableAdapter dANGKYTableAdapter;
-        private System.Windows.Forms.Label mAGVLabel;
         private System.Windows.Forms.ComboBox cmbMaMH;
+        private System.Windows.Forms.ComboBox cmbGV;
     }
 }

@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -49,16 +50,32 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v19.2" />
+    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v19.2" />
+    <Reference Include="DevExpress.DataAccess.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v19.2.Core" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Export, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v19.2" />
+    <Reference Include="DevExpress.Utils.v19.2.UI, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v19.2" />
     <Reference Include="DevExpress.Sparkline.v19.2.Core" />
+    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v19.2" />
+    <Reference Include="DevExpress.XtraGauges.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="System" />
+    <Reference Include="DevExpress.XtraReports.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.2.Extensions, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,13 +87,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DS.cs">
-      <DependentUpon>DS.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDangKyTK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDangKyTK.Designer.cs">
+      <DependentUpon>FrmDangKyTK.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmHocPhi.cs">
       <SubType>Form</SubType>
@@ -126,6 +146,42 @@
     <Compile Include="FrmMonHoc.Designer.cs">
       <DependentUpon>FrmMonHoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_RP_BDMHLTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_BDMHLTC.Designer.cs">
+      <DependentUpon>Frm_RP_BDMHLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_RP_BDTK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_BDTK.designer.cs">
+      <DependentUpon>Frm_RP_BDTK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_RP_DSDHP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_DSDHP.designer.cs">
+      <DependentUpon>Frm_RP_DSDHP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_RP_DSLTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_DSLTC.designer.cs">
+      <DependentUpon>Frm_RP_DSLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_RP_DSSVDKLTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_DSSVDKLTC.designer.cs">
+      <DependentUpon>Frm_RP_DSSVDKLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_RP_PD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_RP_PD.designer.cs">
+      <DependentUpon>Frm_RP_PD.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FrmSinhVien.cs">
@@ -134,11 +190,56 @@
     <Compile Include="FrmSinhVien.Designer.cs">
       <DependentUpon>FrmSinhVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="XtraReport_BDMHLTC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_BDMHLTC.designer.cs">
+      <DependentUpon>XtraReport_BDMHLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport_BDTK.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_BDTK.designer.cs">
+      <DependentUpon>XtraReport_BDTK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport_DSDHP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_DSDHP.designer.cs">
+      <DependentUpon>XtraReport_DSDHP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport_DSLTC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_DSLTC.Designer.cs">
+      <DependentUpon>XtraReport_DSLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport_DSSVDKLTC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_DSSVDKLTC.designer.cs">
+      <DependentUpon>XtraReport_DSSVDKLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport_PD.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport_PD.designer.cs">
+      <DependentUpon>XtraReport_PD.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FrmDangKy.resx">
+      <DependentUpon>FrmDangKy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDangKyTK.resx">
+      <DependentUpon>FrmDangKyTK.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmDangNhap.resx">
       <DependentUpon>FrmDangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDiem.resx">
       <DependentUpon>FrmDiem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHocPhi.resx">
+      <DependentUpon>FrmHocPhi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLop.resx">
       <DependentUpon>FrmLop.cs</DependentUpon>
@@ -148,6 +249,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain1.resx">
       <DependentUpon>FrmMain1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMonHoc.resx">
+      <DependentUpon>FrmMonHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSinhVien.resx">
+      <DependentUpon>FrmSinhVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_BDMHLTC.resx">
+      <DependentUpon>Frm_RP_BDMHLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_BDTK.resx">
+      <DependentUpon>Frm_RP_BDTK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_DSDHP.resx">
+      <DependentUpon>Frm_RP_DSDHP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_DSLTC.resx">
+      <DependentUpon>Frm_RP_DSLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_DSSVDKLTC.resx">
+      <DependentUpon>Frm_RP_DSSVDKLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_RP_PD.resx">
+      <DependentUpon>Frm_RP_PD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -159,6 +284,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="XtraReport_BDMHLTC.resx">
+      <DependentUpon>XtraReport_BDMHLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport_BDTK.resx">
+      <DependentUpon>XtraReport_BDTK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport_DSDHP.resx">
+      <DependentUpon>XtraReport_DSDHP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport_DSLTC.resx">
+      <DependentUpon>XtraReport_DSLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport_DSSVDKLTC.resx">
+      <DependentUpon>XtraReport_DSSVDKLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport_PD.resx">
+      <DependentUpon>XtraReport_PD.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="DS.xsc">
       <DependentUpon>DS.xsd</DependentUpon>

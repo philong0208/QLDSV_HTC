@@ -94,36 +94,36 @@ namespace FrmMain.cs
             mALOPLabel.AutoSize = true;
             mALOPLabel.Location = new System.Drawing.Point(637, 32);
             mALOPLabel.Name = "mALOPLabel";
-            mALOPLabel.Size = new System.Drawing.Size(67, 19);
+            mALOPLabel.Size = new System.Drawing.Size(66, 19);
             mALOPLabel.TabIndex = 0;
-            mALOPLabel.Text = "MALOP:";
+            mALOPLabel.Text = "MÃ LỚP";
             // 
             // tENLOPLabel
             // 
             tENLOPLabel.AutoSize = true;
             tENLOPLabel.Location = new System.Drawing.Point(630, 87);
             tENLOPLabel.Name = "tENLOPLabel";
-            tENLOPLabel.Size = new System.Drawing.Size(74, 19);
+            tENLOPLabel.Size = new System.Drawing.Size(73, 19);
             tENLOPLabel.TabIndex = 2;
-            tENLOPLabel.Text = "TENLOP:";
+            tENLOPLabel.Text = "TÊN LỚP";
             // 
             // kHOAHOCLabel
             // 
             kHOAHOCLabel.AutoSize = true;
             kHOAHOCLabel.Location = new System.Drawing.Point(613, 147);
             kHOAHOCLabel.Name = "kHOAHOCLabel";
-            kHOAHOCLabel.Size = new System.Drawing.Size(91, 19);
+            kHOAHOCLabel.Size = new System.Drawing.Size(90, 19);
             kHOAHOCLabel.TabIndex = 4;
-            kHOAHOCLabel.Text = "KHOAHOC:";
+            kHOAHOCLabel.Text = "KHOÁ HỌC";
             // 
             // mAKHOALabel
             // 
             mAKHOALabel.AutoSize = true;
             mAKHOALabel.Location = new System.Drawing.Point(623, 200);
             mAKHOALabel.Name = "mAKHOALabel";
-            mAKHOALabel.Size = new System.Drawing.Size(81, 19);
+            mAKHOALabel.Size = new System.Drawing.Size(80, 19);
             mAKHOALabel.TabIndex = 6;
-            mAKHOALabel.Text = "MAKHOA:";
+            mAKHOALabel.Text = "MÃ KHOA";
             // 
             // barManager1
             // 
@@ -294,10 +294,11 @@ namespace FrmMain.cs
             // 
             // cmbTenPhongBan
             // 
+            this.cmbTenPhongBan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTenPhongBan.FormattingEnabled = true;
             this.cmbTenPhongBan.Location = new System.Drawing.Point(442, 18);
             this.cmbTenPhongBan.Name = "cmbTenPhongBan";
-            this.cmbTenPhongBan.Size = new System.Drawing.Size(255, 27);
+            this.cmbTenPhongBan.Size = new System.Drawing.Size(316, 27);
             this.cmbTenPhongBan.TabIndex = 1;
             this.cmbTenPhongBan.SelectedIndexChanged += new System.EventHandler(this.cmbTenPhongBan_SelectedIndexChanged);
             // 
@@ -349,6 +350,7 @@ namespace FrmMain.cs
             this.gcLOP.TabIndex = 9;
             this.gcLOP.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gcLOP.Click += new System.EventHandler(this.gcLOP_Click);
             // 
             // gridView1
             // 
@@ -416,6 +418,7 @@ namespace FrmMain.cs
             // txtMAKH
             // 
             this.txtMAKH.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLOP, "MAKHOA", true));
+            this.txtMAKH.Enabled = false;
             this.txtMAKH.Location = new System.Drawing.Point(710, 196);
             this.txtMAKH.MenuManager = this.barManager1;
             this.txtMAKH.Name = "txtMAKH";
@@ -428,6 +431,7 @@ namespace FrmMain.cs
             this.txtKhoaHoc.Location = new System.Drawing.Point(710, 143);
             this.txtKhoaHoc.MenuManager = this.barManager1;
             this.txtKhoaHoc.Name = "txtKhoaHoc";
+            this.txtKhoaHoc.Properties.DisplayFormat.FormatString = "DateT";
             this.txtKhoaHoc.Size = new System.Drawing.Size(241, 28);
             this.txtKhoaHoc.TabIndex = 5;
             // 
@@ -446,6 +450,7 @@ namespace FrmMain.cs
             this.txtMALOP.Name = "txtMALOP";
             this.txtMALOP.Size = new System.Drawing.Size(241, 27);
             this.txtMALOP.TabIndex = 1;
+            this.txtMALOP.TextChanged += new System.EventHandler(this.txtMALOP_TextChanged);
             // 
             // bdsSV
             // 
